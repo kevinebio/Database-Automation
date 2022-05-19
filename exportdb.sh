@@ -29,11 +29,7 @@ read server
 				read backup
 
 				echo "user input: ${backup}"
-
-				##### CONNECTING TO DATABASE #####
-
-
-
+				
 				##### DROPPING EXISTING DATABASE #####
 
 
