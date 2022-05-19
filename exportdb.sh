@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
 hiroTest='test-aurora-mysql-57.cluster-caqvsmapmeil.ap-northeast-1.rds.amazonaws.com'
-hiroAp= 'mysql -hapi-aurora-mysql-57.cluster-caqvsmapmeil.ap-northeast-1.rds.amazonaws.com'
+hiroAp= 'api-aurora-mysql-57.cluster-caqvsmapmeil.ap-northeast-1.rds.amazonaws.com'
 
 echo "Servers: "
 sed -rn 's/^\s*Host\s+(.*)\s*/\1/ip' ~/.ssh/config
@@ -89,7 +89,7 @@ read server
 				##### WITHOUT COMPRESSION #####
 				# ssh ${server} mysqldump --host $hiroApi -u admin-p ${dbname} > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql"
 				echo "Backup successful and saved in: ${PWD}"
-				
+
 			else
 				echo "You've entered an invalid option. Please re-run the script. Thank you!";
 			fi
