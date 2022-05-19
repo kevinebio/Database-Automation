@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
 hiroTest='test-aurora-mysql-57.cluster-caqvsmapmeil.ap-northeast-1.rds.amazonaws.com'
-hiroAp= 'api-aurora-mysql-57.cluster-caqvsmapmeil.ap-northeast-1.rds.amazonaws.com'
+hiroApi= 'api-aurora-mysql-57.cluster-caqvsmapmeil.ap-northeast-1.rds.amazonaws.com'
 
 echo "Servers: "
 sed -rn 's/^\s*Host\s+(.*)\s*/\1/ip' ~/.ssh/config
