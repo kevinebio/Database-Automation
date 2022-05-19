@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
 hiroTest='test-aurora-mysql-57.cluster-caqvsmapmeil.ap-northeast-1.rds.amazonaws.com'
-hiroApi= 'api-aurora-mysql-57.cluster-caqvsmapmeil.ap-northeast-1.rds.amazonaws.com'
+hiroApi='api-aurora-mysql-57.cluster-caqvsmapmeil.ap-northeast-1.rds.amazonaws.com'
 
 echo "Servers: "
 sed -rn 's/^\s*Host\s+(.*)\s*/\1/ip' ~/.ssh/config
@@ -13,12 +13,12 @@ read server
 		echo ">> Which database would you like to connect? <<"
 		read dbname
 
-		echo ">> Would you like to import or export ${dbname}? <<"
+		echo ">> Would you like to do with ${dbname} database? (Please choose between: "import" or "export") <<"
 		read action
 			if [ $action = "import" ];
 			then
 				##### Back up current database #####
-				ssh ${server} mysqldump --host $hiroTest -u admin -p ${dbname} > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql"
+				ssh ${server} mysqldump -h $hiroTest -u admin -p ${dbname} > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql"
 				echo "Backup successful and saved in: ${PWD}"
 
 				##### UPLOADING BACKUP FILE TO REMOTE SERVER #####
@@ -41,7 +41,7 @@ read server
 			then
 
 				##### WITH COMPRESSION #####
-				ssh ${server} mysqldump --host $hiroTest -u admin -p ${dbname} | gzip --best > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql.gz"
+				ssh ${server} mysqldump -h $hiroTest -u admin -p ${dbname} | gzip --best > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql.gz"
 
 				##### WITHOUT COMPRESSION #####
 				# ssh ${server} mysqldump --host $hiroTest -u admin-p ${dbname} > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql"
@@ -56,12 +56,12 @@ read server
 		echo ">> Which database would you like to connect? <<"
 		read dbname
 
-		echo ">> Would you like to import or export ${dbname}? <<"
+		echo ">> Would you like to do with ${dbname} database? (Please choose between: "import" or "export") <<"
 		read action
 			if [ $action = "import" ];
 			then
 				##### Back up current database #####
-				ssh ${server} mysqldump --host $hiroApi -u admin -p ${dbname} > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql"
+				ssh ${server} mysqldump -h $hiroApi -u admin -p ${dbname} > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql"
 				echo "Backup successful and saved in: ${PWD}"
 
 				##### UPLOADING BACKUP FILE TO REMOTE SERVER #####
@@ -84,10 +84,10 @@ read server
 			then
 
 				##### WITH COMPRESSION #####
-				ssh ${server} mysqldump --host $hiroApi -u admin -p ${dbname} | gzip --best > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql.gz"
+				ssh ${server} mysqldump -h $hiroApi -u admin -p ${dbname} | gzip --best > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql.gz"
 
 				##### WITHOUT COMPRESSION #####
-				# ssh ${server} mysqldump --host $hiroApi -u admin-p ${dbname} > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql"
+				# ssh ${server} mysqldump -h $hiroApi -u admin -p ${dbname} > "${dbname} -$(date +"%Y-%m-%d-%H%M%S").sql"
 				echo "Backup successful and saved in: ${PWD}"
 
 			else
